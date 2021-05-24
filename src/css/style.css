@@ -1,0 +1,45 @@
+.read-more {
+    line-height: 1.5rem;
+    color: white;
+    background-color: grey;
+    border-radius: 5px;
+}
+.read-more:hover {
+    cursor: pointer;
+    background-color: white;
+    color: grey;
+}
+
+.post {
+    width: 70%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: lightgrey;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px grey;
+}
+
+.modal {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%) translateY(0);
+    width: 60%;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    z-index: 1;
+}
+
+.back-drop {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.705);
+}
+
+.remove {
+    display: none;
+}
