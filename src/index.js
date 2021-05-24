@@ -1,8 +1,8 @@
 'use strict';
-import './src/css/style.css';
-import Functions from './src/js/Functions.js';
-import Post from './src/js/Post.js';
-import { postsArr } from './src/js/posts.js';
+// import './src/css/style.css';
+import { Functions } from './js/Functions';
+import { Post } from './js/Post';
+import { postsArr } from './js/posts';
 
 const inputDiv = document.querySelector('.input');
 let mainDiv = document.querySelector('.app');

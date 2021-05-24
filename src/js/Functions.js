@@ -1,4 +1,4 @@
-export default class Functions {
+export class Functions {
     static submitValidation() {
         mainDiv.textContent = '';
         if (isNaN(inputVal.value) || +inputVal.value > postsArr.length || inputVal.value === '')

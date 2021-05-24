@@ -1,23 +1,24 @@
 {
-  "name": "old-project-conversion-with-webpack",
-  "version": "1.0.0",
-  "description": "1. Is masyvo paimti kiekviena el ir sukurti html straipsni\r    kuriame butu visi duomenys\r 2. kiekvienam el sukurti mygtuka read more",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/andriusdulevicius/Old-project-conversion-with-webpack.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/andriusdulevicius/Old-project-conversion-with-webpack/issues"
-  },
-  "homepage": "https://github.com/andriusdulevicius/Old-project-conversion-with-webpack#readme",
-  "devDependencies": {
-    "webpack": "^5.37.1",
-    "webpack-cli": "^4.7.0"
-  }
+    "name": "old-project-conversion-with-webpack",
+    "version": "1.0.0",
+    "description": "1. Is masyvo paimti kiekviena el ir sukurti html straipsni\r    kuriame butu visi duomenys\r 2. kiekvienam el sukurti mygtuka read more",
+    "main": "index.js",
+    "scripts": {
+        "start": "webpack --config webpack.dev.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/andriusdulevicius/Old-project-conversion-with-webpack.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/andriusdulevicius/Old-project-conversion-with-webpack/issues"
+    },
+    "homepage": "https://github.com/andriusdulevicius/Old-project-conversion-with-webpack#readme",
+    "devDependencies": {
+        "html-webpack-plugin": "^5.3.1",
+        "webpack": "^5.37.1",
+        "webpack-cli": "^4.7.0"
+    }
 }
