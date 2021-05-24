@@ -1,0 +1,183 @@
+1.Pasikuriam projekta,  pridedam git + github , bent vienas modulinis js failas su kazkokiu funkcionalumu.
+
+2.inicializuojam NPM -npm init
+
+3. Instaliuojam webpack : 
+npm install --save-dev webpack webpack-cli (command line interface)
+
+4. sukuriam .gitignore root direktorijoje, ir jame irasome node_modules ir dist
+
+5. Sukuriam webpack configuracijos faila webpack.dev.js;
+sukuriam scripta package.json faile 
+"start": "webpack --config webpack.dev.js";
+
+6. cia turetu but webpack.build.js
+
+
+7. Reikia idiegti html generavimo plugina:
+npm install --save-dev html-webpack-plugin
+
+inicijuojam plugina confige ir nurodom jam naudoti musu template.html
+
+(Jei norim per webpack dev paduoti title ar kazka dinamiskai , tuomet src esanciame html faile parasom : <title><%= title %></title> , o webpack.dev.js faile prie pluginu paduodam template parametra :
+
+plugins: [
+        new HtmlWebpackPlugin({
+            template: './src/html/template.html',
+            templateParameters: {
+                title: 'We now know Webpack.',
+                mainTitle: 'This is easy',
+            },
+            minify: { removeComments: true, collapseWhitespace: false },
+        }),
+)
+o minify parametras panaikina komentarus dist faile sukompiliuotam html failui.
+
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');   --sitas eilutes nusikopijuojam is dokumentacijos webpack internetiniame puslapyje ir idedam i sukurta faila webpack.dev.js arba config faila(priklauso nuo situacijos, ko jus norite)
+
+Pasirasome webpack.dev.js faile outputa: 
+
+output: {
+        filename: 'bundle.js',
+        path: path.resolve(__dirname, 'dist'),
+        clean: true
+    },
+
+
+8.CSS part:
+
+suinstaliuojam stiliaus packus:
+npm install --save-dev css-loader style-loader
+isirasius pluginus , webpack config faile ties module.exports irasome papildoma info:
+module: {
+        rules: [
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader'],
+            }
+        ],
+    },
+
+Visiems failams kas baigiasi su .css pritaikome tuos du parsiustus loaderius.
+css faila susikuriame src direktorijoje css ,  importuojam ji i app.js :  
+import './css/main.css';
+
+9.Susiinstaliuojam babelio packus:(jis mums padeda naudoti naujesnes js savybes senesniose narsyklese(perraso koda i senesni kad butu suprantama narsyklems))
+
+npm install --save-dev babel-loader @babel/core @babel/preset-env
+
+pridedam naujas rules i webpack config faila:
+
+{
+              test: /\.js$/,
+              exclude: /node_modules/, //taspats ieskosim js failu, isskyrus(exlude) node_modules faile
+              use: {
+                loader: 'babel-loader',
+                options: {
+                  presets: ['@babel/preset-env'] //kiek daug atgal i praeiti mes norim sugrizti(kad veiktu ant senu narsykliu)
+                }
+              }
+            }
+
+o aplamai prie module.exports pridedame savybe: 
+devtool: 'source-map',
+
+is naujo paleidziam npm start
+
+
+10. suinstaliuojam webpack-dev-server:
+
+npm install --save-dev webpack-dev-server
+
+prie module.exports prirasom
+
+ devServer: {
+        contentBase: path.join(__dirname, 'dist'),
+        port: 8080,
+    },
+
+package.json faile , sukuriam scripta:
+  "serve": "webpack serve --config webpack.dev.js --open"  (tarsi liveserver)
+
+npm run serve - paleidzia lokalu serveri darbui, bet  neatkuria failu , viska laiko atmintyje ( jei pvz istrinsim dist faile, paleidus serve , tai dir neatsiras)
+
+o su npm run dev paleidus, atkuria ir istrintus failus
+
+11. instaliuojam minimize css packa (production dalyje reikalignas, bet siuo atveju i dev.js instaliuosiu): 
+npm install --save-dev mini-css-extract-plugin
+
+tada webpacke production failo virsuje ikeliam: const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+poto:
+prie plugins ikelti new MiniCssExtractPlugin();
+prie rules vietoj 'style-loader' ikeliame MiniCssExtractPlugin.loader
+
+
+12. Del img optimizavimo: 
+sita ikeliam i rules webpack.config faile:
+{
+                test: /\.(png|svg|jpe?g|gif)$/i,
+                type: 'asset/resource',
+            },
+
+tada pasiimti paveikslelius galesim su importu (importuojant i js, gauname src adresa, todel reikia susikurti nauja elementa img,  ir sukurto elemento.src prilyginam importuotam elementui)
+
+Taip pat galima img ikelti tiesiogiai i html, bet skiriasi src nurodomas kelias, paduodamas dinamiskai: 
+<img src="<%= require('../images/gifJoke.gif')%>" alt="gif" />
+
+Jei norime kad dist folderyje sugeneruotu visus images i foldery, webpacke prie output parasome nauja savybe: 
+
+assetModuleFilename: 'images/[name][ext]',
+
+
+
+
+norint minimizuoti paveikslelius, reikia instaliuoti tuos tris pluginus: 
+
+npm install image-minimizer-webpack-plugin --save-dev
+
+npm install imagemin-gifsicle imagemin-mozjpeg imagemin-pngquant imagemin-svgo --save-dev
+
+npm install imagemin-webp --save-dev
+
+i webpack production failo virsu isitraukiam plugina: 
+const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
+
+ir to pacio failo apacioj prie pluginu irasom : 
+
+
+new ImageMinimizerPlugin({
+            minimizerOptions: {
+                plugins: [
+                    ['imagemin-webp'],
+                    ['mozjpeg', { quality: 50 }],
+                    ['gifsicle'],
+                    ['pngquant'],
+                    ['imagemin-svgo'],
+                ],
+            },
+        }),
+
+
+
+13. prisideti post css plugin - kad pridetu reikalingus webkit pagal narsykle ir versija
+npm install --save-dev postcss postcss-loader postcss-preset-env
+
+webpack production faile, prie rules >> use  dali pakeiciame i : 
+use: ['style-loader', 'css-loader', 'postcss-loader'],
+
+sukuriam faila postcss.config.js root direktorijoje, ir joje irasome:
+
+module.exports = {
+    plugins: ['postcss-preset-env'],
+};
+
+
+sukuriam faila : .browserslistrc  ,
+jo viduje rasome: 
+
+last 2 versions
+> 0.5%
+IE 9
+
+(cia info del webkitu, kad butu palaikomas senose narsyklese , irasius si faila , dist folderio css faile kur reikia daraso webkit prie savybiu ir perraso tam tikras savybes, kad veiktu senose narsyklese)
