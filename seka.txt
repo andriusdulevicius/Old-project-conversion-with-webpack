@@ -204,3 +204,40 @@ last 2 versions
 IE 9
 
 (cia info del webkitu, kad butu palaikomas senose narsyklese , irasius si faila , dist folderio css faile kur reikia daraso webkit prie savybiu ir perraso tam tikras savybes, kad veiktu senose narsyklese)
+
+
+14. Susiinstaliuojam ESlint plugina (jis production etape istrinta visus nepanaudotus failus , sutvarko klaidas(pvz del kabuciu) ir t.t):
+
+npm install eslint-webpack-plugin --save-dev
+npm install eslint --save-dev
+
+po instaliavimo , reikia paleisti coniguravimo faila terminale irasius:
+
+./node_modules/.bin/eslint --init
+
+parinkti trecia option, tada >> JAvascript modules >> none >> no>> Browser >> use a popular style guide >>AirBnB >> JavaScript >> yes 
+
+
+
+Tuomet webpack.prod.js failo virsuje rasom:
+
+const ESLintPlugin = require('eslint-webpack-plugin');
+
+module.exports faile prie pluginu irasom: 
+
+[new ESLintPlugin(options)],
+
+
+o rules dalyje :
+
+module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+        options: {
+          // eslint options (if necessary)
+        },
+      },
+    ],
