@@ -225,6 +225,8 @@ Tada rasom :
  ./node_modules/.bin/eslint src
 
 
+
+
 Tuomet webpack.dev.js failo virsuje rasom:
 
 const ESLintPlugin = require('eslint-webpack-plugin');
@@ -241,4 +243,13 @@ const lintOptions = {
 };
 
 
+Taip pat kad automatiskai sufixintu problemas , susikureme scriptus: 
 
+"lint": "./node_modules/.bin/eslint src",
+"lint:fix": "./node_modules/.bin/eslint src --fix"  
+
+Sitie scriptai lint - iesko klaidu,  lint:fix istaiso smulkias klaidas, kaip kabutes,  tarpus ir pan. ( siuo atveju visam src folderyje)
+
+norint isatisyti problemas kituose failuose pvz webpack.dev.js ar prod.js :
+
+./node_modules/.bin/eslint (failo pavadinimas) --fix
