@@ -1,17 +1,14 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin'); //html generavimo pluginas.
 const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 
 module.exports = {
-    mode: 'development',
+    mode: 'production',
     target: 'web',
     entry: {
         //nurodom musu programos pagrindini js faila , is cia viskas bus paimta
         main: path.resolve(__dirname, './src/index.js'),
-    },
-
-    devServer: {
-        contentBase: path.join(__dirname, 'dist'),
-        port: 8080,
     },
     output: {
         filename: 'bundle.js',
@@ -19,7 +16,7 @@ module.exports = {
         clean: true,
         assetModuleFilename: 'images/[name][ext]',
     },
-    devtool: 'source-map',
+
     module: {
         rules: [
             {
@@ -28,7 +25,7 @@ module.exports = {
             },
             {
                 test: /\.css$/i,
-                use: ['style-loader', 'css-loader', 'postcss-loader'],
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
             },
             {
                 test: /\.js$/,
@@ -43,6 +40,20 @@ module.exports = {
         ],
     },
     plugins: [
+        new ImageMinimizerPlugin({
+            minimizerOptions: {
+                plugins: [
+                    ['imagemin-webp'],
+                    ['mozjpeg', { quality: 50 }],
+                    ['gifsicle'],
+                    ['pngquant'],
+                    ['imagemin-svgo'],
+                ],
+            },
+        }),
+        new MiniCssExtractPlugin({
+            filename: 'style.css',
+        }),
         new HtmlWebpackPlugin({
             template: './src/html/template.html',
             templateParameters: {

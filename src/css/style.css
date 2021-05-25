@@ -37,9 +37,13 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(0, 0, 0, 0.705);
+    background-color: rgba(0, 0, 0, 0.836);
 }
 
 .remove {
     display: none;
+}
+
+body {
+    background-color: purple;
 }

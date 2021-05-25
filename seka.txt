@@ -84,6 +84,12 @@ o aplamai prie module.exports pridedame savybe:
 devtool: 'source-map',
 
 is naujo paleidziam npm start
+module.exports dalyje irasom: 
+
+entry: {
+        //nurodom musu programos pagrindini js faila , is cia viskas bus paimta
+        main: path.resolve(__dirname, './src/app.js'),
+    },
 
 
 10. suinstaliuojam webpack-dev-server:
@@ -103,6 +109,8 @@ package.json faile , sukuriam scripta:
 npm run serve - paleidzia lokalu serveri darbui, bet  neatkuria failu , viska laiko atmintyje ( jei pvz istrinsim dist faile, paleidus serve , tai dir neatsiras)
 
 o su npm run dev paleidus, atkuria ir istrintus failus
+
+PS> jei live reload neveikia, module.exports dalyje parasome savybe:  target: 'web',  
 
 11. instaliuojam minimize css packa (production dalyje reikalignas, bet siuo atveju i dev.js instaliuosiu): 
 npm install --save-dev mini-css-extract-plugin
