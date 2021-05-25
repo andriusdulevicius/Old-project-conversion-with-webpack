@@ -120,6 +120,21 @@ poto:
 prie plugins ikelti new MiniCssExtractPlugin();
 prie rules vietoj 'style-loader' ikeliame MiniCssExtractPlugin.loader
 
+Taip pat , kad suspaustu CSS faila galime instaliuoti :
+
+npm install --save-dev css-minimizer-webpack-plugin
+
+Tuomet webpack.prod.js faile module.exports dalies apacioje irasome: 
+
+   optimization: {
+        minimizer: [new CssMinimizerPlugin()],
+    },
+
+o failo virsuje irasom : 
+
+const CssMinimierPlugin = require('css-minimizer-webpack-plugin');
+
+
 
 12. Del img optimizavimo: 
 sita ikeliam i rules webpack.config faile:
