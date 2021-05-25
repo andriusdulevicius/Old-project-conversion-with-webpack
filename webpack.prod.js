@@ -2,6 +2,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin'); //html generavimo plug
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
+const CssMinimierPlugin = require('css-minimizer-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 module.exports = {
     mode: 'production',
@@ -63,4 +65,7 @@ module.exports = {
             minify: { removeComments: true, collapseWhitespace: false },
         }),
     ],
+    optimization: {
+        minimizer: [new CssMinimizerPlugin()],
+    },
 };
