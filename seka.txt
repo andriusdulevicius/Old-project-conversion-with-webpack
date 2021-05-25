@@ -211,33 +211,34 @@ IE 9
 npm install eslint-webpack-plugin --save-dev
 npm install eslint --save-dev
 
+npm install eslint-config-airbnb-base@latest eslint@^7.2.0 eslint-plugin-import@^2.22.1 --save-dev
+
+
 po instaliavimo , reikia paleisti coniguravimo faila terminale irasius:
 
 ./node_modules/.bin/eslint --init
 
 parinkti trecia option, tada >> JAvascript modules >> none >> no>> Browser >> use a popular style guide >>AirBnB >> JavaScript >> yes 
 
+Tada rasom : 
+
+ ./node_modules/.bin/eslint src
 
 
-Tuomet webpack.prod.js failo virsuje rasom:
+Tuomet webpack.dev.js failo virsuje rasom:
 
 const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports faile prie pluginu irasom: 
 
-[new ESLintPlugin(options)],
+[new ESLintPlugin(lintOptions)],
+
+o virsuje susikuriam lintOptions :
+
+const lintOptions = {
+  context: path.resolve(__dirname),
+  fix: true,
+};
 
 
-o rules dalyje :
 
-module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'eslint-loader',
-        options: {
-          // eslint options (if necessary)
-        },
-      },
-    ],
