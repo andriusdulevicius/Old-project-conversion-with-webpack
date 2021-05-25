@@ -1,6 +1,10 @@
+import { postsArr } from './posts.js';
+import { printResults } from '../index.js';
+const inputVal = document.getElementById('inputVal');
 export class Functions {
+    static mainDiv = document.querySelector('.app');
     static submitValidation() {
-        mainDiv.textContent = '';
+        Functions.mainDiv.textContent = '';
         if (isNaN(inputVal.value) || +inputVal.value > postsArr.length || inputVal.value === '')
             alert('Iveskite skaiciu, nedidesni nei straipsniu kiekis');
         else {
@@ -10,12 +14,12 @@ export class Functions {
     }
 
     static filteredUser3() {
-        mainDiv.textContent = '';
+        Functions.mainDiv.textContent = '';
         let updatedPostsArr = postsArr.filter(({ userId }) => userId === 3);
         printResults(updatedPostsArr);
     }
     static filteredUser4() {
-        mainDiv.textContent = '';
+        Functions.mainDiv.textContent = '';
         let updatedPostsArr = postsArr.filter(({ userId }) => userId === 4);
         printResults(updatedPostsArr);
     }

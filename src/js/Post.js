@@ -1,3 +1,7 @@
+export let postDiv;
+export let readMoreBtn;
+import { backDrop } from '../index.js';
+let modal = document.createElement('div');
 export class Post {
     constructor({ userId, id, title, body }) {
         this.userId = userId;
@@ -5,7 +9,6 @@ export class Post {
         this.title = title;
         this.body = body;
     }
-
     generateHtml() {
         postDiv = document.createElement('div');
         readMoreBtn = document.createElement('button');

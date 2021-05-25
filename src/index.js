@@ -1,16 +1,12 @@
-'use strict';
-// import './src/css/style.css';
+import './css/style.css';
 import { Functions } from './js/Functions';
-import { Post } from './js/Post';
+import { Post, readMoreBtn } from './js/Post';
 import { postsArr } from './js/posts';
 
-const inputDiv = document.querySelector('.input');
 let mainDiv = document.querySelector('.app');
-let readMoreBtn;
-let postDiv;
-let modal = document.createElement('div');
-let backDrop = document.createElement('div');
-const inputVal = document.getElementById('inputVal');
+
+export let backDrop = document.createElement('div');
+
 const submitBtn = document.querySelector('.submit');
 const user3 = document.querySelector('.user3');
 const user4 = document.querySelector('.user4');
@@ -19,7 +15,7 @@ submitBtn.addEventListener('click', Functions.submitValidation);
 user3.addEventListener('click', Functions.filteredUser3);
 user4.addEventListener('click', Functions.filteredUser4);
 
-function printResults(arr) {
+export function printResults(arr) {
     arr.forEach((post) => {
         let postEl = new Post(post);
 
